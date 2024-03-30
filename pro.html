@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Music player</title>
+    <script
+      src="https://kit.fontawesome.com/e22edd0769.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="music-player">
+        <nav>
+          <div class="circle"><i class="fa-solid fa-angle-left"></i></div>
+          <div class="circle"><i class="fa-solid fa-bars"></i></div>
+        </nav>
+        <img src="468-thumbnail.png" class="song-img" />
+        <h1>Despacito</h1><br>
+        <p>Luis Fonsi Ft. Puerto Ricon</p><br>
+        <audio  class="song" id="song">
+          <source src="Vishnu - Patrick Patrikios (1).mp3" type="audio/mpeg" />
+        </audio>
+        <input type="range" value="0" id="progress" />
+        <div class="control">
+          <div><i class="fa-solid fa-backward"></i></div>
+          <div onclick=" playpause()">
+            <i class="fa-solid fa-play" id="cntlicon"></i>
+          </div>
+          <div><i class="fa-solid fa-forward"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let progress = document.getElementById("progress");
+      let song = document.getElementById("song");
+      let cntlicon = document.getElementById("cntlicon");
+
+      song.onloadedmetadata = function() {
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+      };
+
+      function playpause() {
+        if (cntlicon.classList.contains("fa-play")) {
+           song.play();
+          cntlicon.classList.remove("fa-play");
+          cntlicon.classList.add("fa-pause");
+        } else {
+          song.pause();
+          cntlicon.classList.remove("fa-pause");
+          cntlicon.classList.add("fa-play");
+        }
+      }
+
+      if(song.play()){
+        setInterval(()=>{
+          progress.value = song.currentTime;
+        },500);
+      }
+
+      progress.oninput = function() {
+      song.currentTime = progress.value;
+    };
+    </script>
+  </body>
+</html>
+
+
